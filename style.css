@@ -1,0 +1,165 @@
+body{
+    margin:0;
+    background:#111;
+    font-family:Arial, sans-serif;
+    height:100vh;
+    overflow:hidden;
+}
+
+canvas{
+    background:#181818;
+    display:none;
+    position:absolute;
+    left:50%;
+    top:50%;
+    transform:translate(-50%,-50%);
+    z-index:1;
+}
+
+.menu{
+    position:absolute;
+    left:40px;
+    top:50%;
+    transform:translateY(-50%);
+    display:flex;
+    flex-direction:column;
+    gap:20px;
+    z-index:2;
+}
+
+button{
+    padding:15px 30px;
+    font-size:18px;
+    cursor:pointer;
+    border:none;
+    border-radius:8px;
+    font-weight:bold;
+}
+
+#playBtn{background:lime;}
+#customBtn{background:cyan;}
+#quitBtn{background:#ff5555;}
+
+#fullscreenBtn{
+    position:absolute;
+    top:10px;
+    right:10px;
+    z-index:5;
+}
+
+#soundBtn{
+    position:absolute;
+    top:70px;
+    right:10px;
+    z-index:5;
+}
+
+#scoreBoard{
+    position:absolute;
+    top:10px;
+    left:10px;
+    color:white;
+    display:none;
+    font-size:18px;
+    z-index:4;
+}
+
+#overlay{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,0.7);
+    display:none;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+    gap:20px;
+    z-index:1000;
+}
+
+#customOverlay{
+    position:fixed;
+    inset:0;
+    background:#111;
+    display:none;
+    justify-content:center;
+    align-items:center;
+    z-index:2000;
+}
+
+#customContent{
+    width:80%;
+    height:80%;
+    display:flex;
+    background:#1a1a1a;
+    border-radius:12px;
+    padding:40px;
+    gap:40px;
+}
+
+#leftPanel{
+    width:40%;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    color:white;
+}
+
+#rightPanel{
+    width:60%;
+    color:white;
+}
+
+#colorPalette{
+    display:grid;
+    grid-template-columns:repeat(8, 40px);
+    gap:10px;
+    margin-top:20px;
+}
+
+.colorSwatch{
+    width:40px;
+    height:40px;
+    border-radius:6px;
+    cursor:pointer;
+    border:2px solid #333;
+}
+
+.colorSwatch:hover{
+    border:2px solid white;
+}
+
+#vaultButton{
+    position:absolute;
+    right:20px;
+    bottom:20px;
+    width:40px;
+    height:40px;
+    background:white;
+    color:black;
+    display:none;
+    align-items:center;
+    justify-content:center;
+    font-weight:bold;
+    border-radius:6px;
+    cursor:pointer;
+    z-index:3000;
+}
+
+#vaultOverlay{
+    position:fixed;
+    inset:0;
+    background:gray;
+    display:none;
+    align-items:center;
+    justify-content:center;
+    z-index:4000;
+}
+
+#vaultInput{
+    padding:20px;
+    font-size:20px;
+    border:none;
+    border-radius:8px;
+    outline:none;
+}
