@@ -1,3 +1,6 @@
+
+
+
 document.getElementById("playBtn").onclick=()=>{
     mainMenu.style.display="none";
     scoreBoard.style.display="block";
@@ -27,12 +30,6 @@ document.getElementById("menuBtn").onclick=()=>{
     mainMenu.style.display="flex";
 
     bgMusic.pause();
-};
-
-document.getElementById("fullscreenBtn").onclick=()=>{
-    if(!document.fullscreenElement)
-        document.documentElement.requestFullscreen();
-    else document.exitFullscreen();
 };
 
 const soundBtn = document.getElementById("soundBtn");

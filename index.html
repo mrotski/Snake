@@ -2,15 +2,15 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Snake 125328022026</title>
+<title>Snake 1.2.1</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <div class="menu" id="mainMenu">
     <button id="playBtn">Play</button>
-    <button id="customBtn">Customize Snake</button>
-    <button id="quitBtn">Quit</button>
+    <button id="customBtn">Customize</button>
+    <button id="quitBtn">Exit game</button>
 </div>
 
 <div id="customOverlay">
@@ -19,12 +19,6 @@
             <h2>Snake Preview</h2>
             <canvas id="previewCanvas" width="200" height="200"></canvas>
         </div>
-
-        <div id="vaultButton">?</div>
-
-       <div id="vaultOverlay">
-       <input id="vaultInput" placeholder="Enter code...">
-       </div>
 
         <div id="rightPanel">
             <h2>Select Color</h2>
@@ -36,16 +30,15 @@
 </div>
 
 <div id="overlay">
-    <button id="resumeBtn">Resume</button>
-    <button id="menuBtn">Main Menu</button>
+    <button id="resumeBtn">Resume game</button>
+    <button id="menuBtn">Exit to menu</button>
 </div>
 
 <div id="scoreBoard">
-    Highscore: <span id="highScore">0</span><br>
-    Score: <span id="score">0</span>
+    Your best: <span id="highScore">0</span><br>
+    Your score: <span id="score">0</span>
 </div>
 
-<button id="fullscreenBtn">Toggle Fullscreen</button>
 <button id="soundBtn">Toggle Sound</button>
 
 <canvas id="game"></canvas>
