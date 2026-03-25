@@ -19,3 +19,54 @@ document.addEventListener("keydown",e=>{
     if(newDir)nextDirection=newDir;
 
 });
+
+function handleDirectionInput(newDir) {
+    if (!gameStarted) return;
+    if (paused) return;
+
+    if (newDir) nextDirection = newDir;
+}
+
+document.querySelector(".up")?.addEventListener("touchstart", () => {
+    handleDirectionInput({ x: 0, y: -1 });
+});
+
+document.querySelector(".down")?.addEventListener("touchstart", () => {
+    handleDirectionInput({ x: 0, y: 1 });
+});
+
+document.querySelector(".left")?.addEventListener("touchstart", () => {
+    handleDirectionInput({ x: -1, y: 0 });
+});
+
+document.querySelector(".right")?.addEventListener("touchstart", () => {
+    handleDirectionInput({ x: 1, y: 0 });
+});
+
+document.querySelectorAll(".ctrl").forEach(btn => {
+    btn.addEventListener("touchstart", (e) => {
+        e.preventDefault();
+    });
+});
+
+document.querySelector(".up")?.addEventListener("mousedown", () => {
+    handleDirectionInput({ x: 0, y: -1 });
+});
+
+document.querySelector(".down")?.addEventListener("mousedown", () => {
+    handleDirectionInput({ x: 0, y: 1 });
+});
+
+document.querySelector(".left")?.addEventListener("mousedown", () => {
+    handleDirectionInput({ x: -1, y: 0 });
+});
+
+document.querySelector(".right")?.addEventListener("mousedown", () => {
+    handleDirectionInput({ x: 1, y: 0 });
+});
+
+const isMobile = window.matchMedia("(pointer: coarse)").matches;
+
+if (isMobile) {
+    document.getElementById("mobileControls").style.display = "block";
+}
