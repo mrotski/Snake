@@ -1,19 +1,28 @@
+const mainMenu = document.getElementById("mainMenu");
+const scoreBoard = document.getElementById("scoreBoard");
+const gameCanvas = document.getElementById("game");
+const overlay = document.getElementById("overlay");
+document.getElementById("playBtn").onclick = () => {
+    mainMenu.style.display = "none";
+    scoreBoard.style.display = "block";
+    gameCanvas.style.display="block";
 
+    gameStarted = true;
+    paused = false;
 
+    // ⭐ turvallinen kutsu
+    if (typeof initStars === "function") {
+        initStars();
+    }
 
-document.getElementById("playBtn").onclick=()=>{
-    mainMenu.style.display="none";
-    scoreBoard.style.display="block";
-    canvas.style.display="block";
-    gameStarted=true;
-    paused=false;
     resetGame();
 
-    bgMusic.currentTime=0;
+    bgMusic.currentTime = 0;
     bgMusic.play();
 
     requestAnimationFrame(gameLoop);
 };
+
 
 document.getElementById("quitBtn").onclick=()=>{
     window.close();
@@ -26,7 +35,7 @@ document.getElementById("menuBtn").onclick=()=>{
     gameStarted=false;
     overlay.style.display="none";
     scoreBoard.style.display="none";
-    canvas.style.display="none";
+    gameCanvas.style.display="none";
     mainMenu.style.display="flex";
 
     bgMusic.pause();

@@ -1,8 +1,66 @@
 const canvas=document.getElementById("game");
 const ctx=canvas.getContext("2d");
+const stars = [];
+const STAR_COUNT = 80;
+
+function initStars(){
+    stars.length = 0;
+
+    for(let i=0;i<STAR_COUNT;i++){
+        stars.push({
+            x: Math.random(),
+            y: Math.random(),
+            size: Math.random()*1.2,
+            alpha: Math.random()*0.4 + 0.1
+        });
+    }
+}
+
+function drawStars(ctx, canvas){
+    for(let s of stars){
+        // twinkle
+        s.alpha += (Math.random()-0.5)*0.01;
+        if(s.alpha < 0.1) s.alpha = 0.1;
+        if(s.alpha > 0.5) s.alpha = 0.5;
+
+        ctx.fillStyle = `rgba(255,255,255,${s.alpha})`;
+        ctx.fillRect(
+            s.x * canvas.width,
+            s.y * canvas.height,
+            s.size,
+            s.size
+        );
+    }
+}
+
+function resizeGameCanvas(){
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+}
+
+window.addEventListener("resize", () => {
+    resizeGameCanvas();
+    updateGrid();
+});
 
 const gridSize=25;
-const tileSize=24;
+let tileSize;
+let tilesX;
+let tilesY;
+
+function updateGrid(){
+    const base = 25; // mitä isompi = isommat ruudut
+
+    tileSize = Math.floor(Math.min(
+        canvas.width / base,
+        canvas.height / base
+    ));
+
+    tilesX = Math.floor(canvas.width / tileSize);
+    tilesY = Math.floor(canvas.height / tileSize);
+}
+resizeGameCanvas();
+updateGrid();
 canvas.width=gridSize*tileSize;
 canvas.height=gridSize*tileSize;
 
@@ -34,9 +92,9 @@ function resetGame(){
 }
 
 function spawnFood(){
-    food={
-        x:Math.floor(Math.random()*gridSize),
-        y:Math.floor(Math.random()*gridSize)
+    food = {
+        x: Math.floor(Math.random() * tilesX),
+        y: Math.floor(Math.random() * tilesY)
     };
 }
 
@@ -65,7 +123,8 @@ function update(){
         y:snake[0].y+direction.y
     };
 
-    if(head.x<0||head.y<0||head.x>=gridSize||head.y>=gridSize){
+    if(head.x < 0 || head.x >= tilesX || head.y < 0 || head.y >= tilesY){
+        gameOver();
 
         shrinkTimer++;
 
