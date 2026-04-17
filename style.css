@@ -38,7 +38,8 @@ button{
 
 #playBtn{background:lime;}
 #customBtn{background:cyan;}
-#quitBtn{background:#ff5555;}
+#settingsBtn{background:#b983ff;}
+#quitBtn{background:rgb(255, 73, 73);}
 
 #soundBtn{
     position:absolute;
@@ -77,6 +78,102 @@ button{
     justify-content:center;
     align-items:center;
     z-index:2000;
+}
+
+#settingsOverlay{
+    position:fixed;
+    inset:0;
+    background:#111;
+    display:none;
+    justify-content:center;
+    align-items:center;
+    z-index:2100;
+}
+
+#settingsContent{
+    width:80%;
+    height:80%;
+    display:flex;
+    flex-direction:column;
+    background:#1a1a1a;
+    border-radius:12px;
+    padding:28px;
+    gap:18px;
+    color:white;
+}
+
+#settingsHeader{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:16px;
+}
+
+#settingsHeader h2{
+    margin:0;
+}
+
+#settingsTabs{
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+}
+
+.settingsTab{
+    padding:10px 14px;
+    font-size:14px;
+    border-radius:12px;
+    background:#151515;
+    color:white;
+    border:2px solid #333;
+}
+
+.settingsTab.active{
+    background:#2a2a2a;
+    border:2px solid white;
+}
+
+.settingsPanel{
+    flex:1;
+    overflow:auto;
+    padding:10px 2px;
+}
+
+#songsList{
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+}
+
+.songRow{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:12px;
+    padding:12px 14px;
+    border-radius:12px;
+    background:#141414;
+    border:2px solid #2a2a2a;
+}
+
+.songRow.active{
+    border-color:white;
+}
+
+.songTitle{
+    font-weight:bold;
+}
+
+.songMeta{
+    opacity:0.8;
+    font-size:12px;
+}
+
+.songPick{
+    padding:10px 12px;
+    font-size:14px;
+    border-radius:10px;
+    background:#00ffff;
 }
 
 #customContent{
@@ -163,5 +260,37 @@ body {
 
 /* pieni painallusanimaatio */
 .ctrl:active {
-    transform: scale(0.9);
+    transform: scale(0.6);
+}
+
+.paletteGroup{
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.paletteRow{
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap; /* jos ei mahdu */
+}
+
+.colorSwatch{
+    width: 40px;
+    height: 40px;
+    border-radius: 6px;
+    cursor: pointer;
+    border: 2px solid #333;
+}
+
+.colorSwatch:hover{
+    border: 2px solid white;
+}
+
+.paletteTitle{
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    min-width: 100px; /* 🔥 pitää rivit siistinä */
 }
