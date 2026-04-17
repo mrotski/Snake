@@ -2,13 +2,41 @@ const mainMenu = document.getElementById("mainMenu");
 const scoreBoard = document.getElementById("scoreBoard");
 const gameCanvas = document.getElementById("game");
 const overlay = document.getElementById("overlay");
+
+function requestGameFullscreen(){
+    if(document.fullscreenElement) return;
+
+    const el = document.documentElement;
+    const req =
+        el.requestFullscreen ||
+        el.webkitRequestFullscreen ||
+        el.msRequestFullscreen;
+
+    if(typeof req !== "function") return;
+
+    try{
+        const p = req.call(el, { navigationUI: "hide" });
+        if(p && typeof p.catch === "function") p.catch(()=>{});
+    }catch(_e){
+        // ignore – most browsers require a user gesture
+    }
+}
+
+// Best-effort: will usually be denied until the first user gesture.
+setTimeout(requestGameFullscreen, 0);
+document.addEventListener("pointerdown", requestGameFullscreen, { once: true });
+document.addEventListener("keydown", requestGameFullscreen, { once: true });
+
 document.getElementById("playBtn").onclick = () => {
+    requestGameFullscreen();
+
     mainMenu.style.display = "none";
     scoreBoard.style.display = "block";
     gameCanvas.style.display="block";
 
     gameStarted = true;
     paused = false;
+    overlay.style.display = "none";
 
     // ⭐ turvallinen kutsu
     if (typeof initStars === "function") {
@@ -20,7 +48,7 @@ document.getElementById("playBtn").onclick = () => {
     bgMusic.currentTime = 0;
     bgMusic.play();
 
-    requestAnimationFrame(gameLoop);
+    startGameLoop();
 };
 
 
@@ -39,6 +67,7 @@ document.getElementById("menuBtn").onclick=()=>{
     mainMenu.style.display="flex";
 
     bgMusic.pause();
+    stopGameLoop();
 };
 
 const soundBtn = document.getElementById("soundBtn");
