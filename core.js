@@ -58,8 +58,14 @@ function drawStars(ctx, canvas){
 }
 
 function resizeGameCanvas(){
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
+    // Allow rendering at a chosen internal resolution while keeping CSS size fullscreen.
+    // Only applied while in fullscreen.
+    const desired = (document.fullscreenElement && window.snakeResolution && window.snakeResolution.w && window.snakeResolution.h)
+        ? window.snakeResolution
+        : null;
+
+    canvas.width = desired ? desired.w : window.innerWidth;
+    canvas.height = desired ? desired.h : window.innerHeight;
 }
 
 window.addEventListener("resize", () => {

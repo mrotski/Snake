@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, viewport-fit=cover">
-<title>Snake 1.9</title>
+<title>Snake 1.10</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -26,10 +26,34 @@
 
         <div id="settingsTabs">
             <button class="settingsTab" data-tab="songs">Songs</button>
+            <button class="settingsTab" data-tab="fullscreen">Fullscreen</button>
+            <button class="settingsTab" data-tab="fonts">Fonts (beta)</button>
+            <button class="settingsTab" data-tab="resolution">Resolution (beta)</button>
         </div>
 
         <div class="settingsPanel" data-panel="songs">
             <div id="songsList"></div>
+        </div>
+
+        <div class="settingsPanel" data-panel="fullscreen" style="display:none">
+            <div id="fullscreenSettings">
+                <div class="fsOption" data-fs="fullscreen">
+                    <div class="fsTitle">Prefer fullscreen when possible</div>
+                    <div class="fsMeta">Tries to enter fullscreen on first click / Play.</div>
+                </div>
+                <div class="fsOption" data-fs="windowed">
+                    <div class="fsTitle">Prefer windowed</div>
+                    <div class="fsMeta">Never requests fullscreen.</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="settingsPanel" data-panel="fonts" style="display:none">
+            <div id="fontsList"></div>
+        </div>
+
+        <div class="settingsPanel" data-panel="resolution" style="display:none">
+            <div id="resolutionList"></div>
         </div>
     </div>
 </div>
@@ -91,6 +115,8 @@
 <script src="songs/index.js"></script>
 <script src="menu.js"></script>
 <script src="customize.js"></script>
+
+<div id="toast" role="status" aria-live="polite"></div>
 
 </body>
 </html>

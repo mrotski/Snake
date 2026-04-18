@@ -163,6 +163,7 @@ document.getElementById("customBtn").onclick=()=>{
     customOverlay.style.display="flex";
 
     renderColorMenu();
+    window.updateMobileControlsVisibility?.();
 
     if(previewRafId === null){
         drawPreview();
@@ -172,6 +173,7 @@ document.getElementById("customBtn").onclick=()=>{
 document.getElementById("closeCustom").onclick=()=>{
     customOverlay.style.display="none";
     mainMenu.style.display="flex";
+    window.updateMobileControlsVisibility?.();
 
     if(previewRafId !== null){
         cancelAnimationFrame(previewRafId);

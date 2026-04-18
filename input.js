@@ -65,8 +65,5 @@ document.querySelector(".right")?.addEventListener("mousedown", () => {
     handleDirectionInput({ x: 1, y: 0 });
 });
 
+// Mobile controls visibility is managed by menu/UI state (in-game only).
 const isMobile = window.matchMedia("(pointer: coarse)").matches;
-
-if (isMobile) {
-    document.getElementById("mobileControls").style.display = "block";
-}
