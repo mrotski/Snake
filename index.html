@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, viewport-fit=cover">
-<title>Snake 1.13.03</title>
+<title>Snake 1.14.05</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -16,7 +16,7 @@
     <button id="quitBtn">Exit game</button>
 </div>
 
-<div id="versionText">Snake 1.13.03 -- © Rubinica Studios 2026</div>
+<div id="versionText">Snake 1.14.05 -- © Rubinica Studios 2026</div>
 
 <!-- SETTINGS MENU -->
 <div id="settingsOverlay">
@@ -31,6 +31,7 @@
             <button class="settingsTab" data-tab="fullscreen">Fullscreen</button>
             <button class="settingsTab" data-tab="fonts">Fonts</button>
             <button class="settingsTab" data-tab="resolution">Resolution (beta)</button>
+            <button class="settingsTab" data-tab="releaseInfo">Info about this release</button>
         </div>
 
         <div class="settingsPanel" data-panel="songs">
@@ -44,7 +45,7 @@
                     <div class="fsMeta">Tries to enter fullscreen on first click / Play.</div>
                 </div>
                 <div class="fsOption" data-fs="windowed">
-                    <div class="fsTitle">Prefer windowed</div>
+                    <div class="fsTitle">Prefer windowed (Developer's recommendation!)</div>
                     <div class="fsMeta">Never requests fullscreen.</div>
                 </div>
             </div>
@@ -56,6 +57,13 @@
 
         <div class="settingsPanel" data-panel="resolution" style="display:none">
             <div id="resolutionList"></div>
+        </div>
+
+        <div class="settingsPanel" data-panel="releaseInfo" style="display:none">
+            <div id="releaseInfo">
+                <div class="releaseVersion">Snake 1.14.05</div>
+                <div class="releaseMeta">Release date: 2026-05-05-18:48. Added: nothing. Fixed: "info about this release" tab. Removed: nothing.</div>
+            </div>
         </div>
     </div>
 </div>

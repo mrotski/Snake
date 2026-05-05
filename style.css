@@ -166,6 +166,24 @@ button{
     padding:10px 2px;
 }
 
+#releaseInfo{
+    padding:14px 2px;
+}
+
+.releaseVersion{
+    font-size:34px;
+    font-weight:800;
+    letter-spacing:0;
+    margin-bottom:10px;
+}
+
+.releaseMeta{
+    opacity:0.85;
+    font-size:14px;
+    line-height:1.45;
+    max-width:70ch;
+}
+
 #songsList{
     display:flex;
     flex-direction:column;

@@ -352,6 +352,7 @@ function setActiveSettingsTab(tab){
     if(tab === "resolution"){
         renderResolutionList();
     }
+    // releaseInfo is static text (no rendering needed)
 }
 
 function requestGameFullscreen(){
