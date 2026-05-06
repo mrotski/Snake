@@ -80,6 +80,8 @@ button{
     top:30px;
     right:10px;
     z-index:5;
+    color: whitesmoke;
+    background: rgba(245, 245, 245, 0.281);
 }
 
 #scoreBoard{
