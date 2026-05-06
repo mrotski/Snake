@@ -1,4 +1,5 @@
 const mainMenu = document.getElementById("mainMenu");
+const mainMenuBg = document.getElementById("mainMenuBg");
 const scoreBoard = document.getElementById("scoreBoard");
 const gameCanvas = document.getElementById("game");
 const overlay = document.getElementById("overlay");
@@ -43,6 +44,13 @@ function isElementVisible(el){
     if(!el) return false;
     return window.getComputedStyle(el).display !== "none";
 }
+
+function setMainMenuVisible(visible){
+    mainMenu.style.display = visible ? "flex" : "none";
+    if(mainMenuBg) mainMenuBg.style.display = visible ? "block" : "none";
+}
+
+window.setMainMenuVisible = setMainMenuVisible;
 
 function updateMobileControlsVisibility(){
     if(!mobileControlsEl) return;
@@ -383,7 +391,7 @@ document.addEventListener("keydown", requestGameFullscreen, { once: true });
 document.getElementById("playBtn").onclick = () => {
     requestGameFullscreen();
 
-    mainMenu.style.display = "none";
+    setMainMenuVisible(false);
     scoreBoard.style.display = "block";
     gameCanvas.style.display="block";
 
@@ -408,7 +416,7 @@ document.getElementById("playBtn").onclick = () => {
 };
 
 document.getElementById("settingsBtn").onclick = () => {
-    mainMenu.style.display = "none";
+    setMainMenuVisible(false);
     settingsOverlay.style.display = "flex";
     setActiveSettingsTab("songs");
     updateResolutionTabState();
@@ -417,7 +425,7 @@ document.getElementById("settingsBtn").onclick = () => {
 
 document.getElementById("closeSettings").onclick = () => {
     settingsOverlay.style.display = "none";
-    mainMenu.style.display = "flex";
+    setMainMenuVisible(true);
     updateMobileControlsVisibility();
 };
 
@@ -462,7 +470,7 @@ document.getElementById("menuBtn").onclick=()=>{
     overlay.style.display="none";
     scoreBoard.style.display="none";
     gameCanvas.style.display="none";
-    mainMenu.style.display="flex";
+    setMainMenuVisible(true);
 
     bgMusic.pause();
     stopGameLoop();

@@ -29,7 +29,7 @@ textarea{
     font-family:inherit;
 }
 
-canvas{
+#game{
     background:#181818;
     display:none;
     position:fixed;
@@ -37,6 +37,17 @@ canvas{
     width:100vw;
     height:100vh;
     z-index:1;
+}
+
+#mainMenuBg{
+    position:fixed;
+    inset:0px;
+    background-image:url("assets/background.png");
+    background-size:cover;
+    background-position:center;
+    background-repeat:no-repeat;
+    z-index:0;
+    pointer-events:none;
 }
 
 .menu{
@@ -59,10 +70,10 @@ button{
     font-weight:bold;
 }
 
-#playBtn{background:lime;}
-#customBtn{background:cyan;}
-#settingsBtn{background:#b983ff;}
-#quitBtn{background:rgb(255, 73, 73);}
+#playBtn{background:whitesmoke;}
+#customBtn{background:whitesmoke;}
+#settingsBtn{background:whitesmoke;}
+#quitBtn{background:whitesmoke;}
 
 #soundBtn{
     position:absolute;
@@ -84,7 +95,7 @@ button{
 #overlay{
     position:fixed;
     inset:0;
-    background:rgba(0,0,0,0.7);
+    background:rgba(255, 255, 255, 0.401);
     display:none;
     justify-content:center;
     align-items:center;
@@ -218,7 +229,7 @@ button{
     padding:10px 12px;
     font-size:14px;
     border-radius:10px;
-    background:#00ffff;
+    background:whitesmoke;
 }
 
 #fullscreenSettings{
@@ -284,7 +295,7 @@ button{
     padding:10px 12px;
     font-size:14px;
     border-radius:10px;
-    background:#00ffff;
+    background:whitesmoke;
 }
 
 #toast{
@@ -346,6 +357,32 @@ button{
     margin-top:20px;
 }
 
+#shapePicker{
+    display:flex;
+    gap:12px;
+    flex-wrap:wrap;
+    align-items:center;
+    margin-top:12px;
+}
+
+.shapePick{
+    padding:10px 12px;
+    border-radius:12px;
+    background:#141414;
+    border:2px solid #2a2a2a;
+    cursor:pointer;
+}
+
+.shapePick.active{
+    border-color:white;
+}
+
+#shapePicker canvas{
+    display:block;
+    background:#181818;
+    border-radius:8px;
+}
+
 .colorSwatch{
     width:40px;
     height:40px;
@@ -389,7 +426,7 @@ body {
 
 /* nappien tyyli */
 .ctrl {
-    font-size: 24px;
+    font-size: 30px;
     padding: 15px;
     margin: 5px;
     border-radius: 10px;

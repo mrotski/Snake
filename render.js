@@ -56,7 +56,19 @@ ctx.restore();
 
     // SNAKE
     ctx.fillStyle=snakeColor;
-    snake.forEach(seg=>{
-        ctx.fillRect(seg.x*tileSize,seg.y*tileSize,tileSize,tileSize);
-    });
+    const shape = (typeof snakeShape === "string") ? snakeShape : "rect";
+    if(shape === "round"){
+        const r = tileSize * 0.5;
+        snake.forEach(seg=>{
+            const cx = seg.x*tileSize + r;
+            const cy = seg.y*tileSize + r;
+            ctx.beginPath();
+            ctx.arc(cx, cy, r, 0, Math.PI*2);
+            ctx.fill();
+        });
+    }else{
+        snake.forEach(seg=>{
+            ctx.fillRect(seg.x*tileSize,seg.y*tileSize,tileSize,tileSize);
+        });
+    }
 }

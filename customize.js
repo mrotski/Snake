@@ -2,6 +2,10 @@ const customOverlay=document.getElementById("customOverlay");
 const previewCanvas=document.getElementById("previewCanvas");
 const pctx=previewCanvas.getContext("2d");
 const palette=document.getElementById("colorPalette");
+const shapeRectBtn=document.getElementById("shapeRectBtn");
+const shapeRoundBtn=document.getElementById("shapeRoundBtn");
+const shapeRectPreview=document.getElementById("shapeRectPreview");
+const shapeRoundPreview=document.getElementById("shapeRoundPreview");
 
 const colorGroups = [
 
@@ -136,6 +140,61 @@ function renderColorMenu(){
     renderSwatches();
 }
 
+function drawShapePreview(canvas, shape){
+    if(!canvas) return;
+    const ctx = canvas.getContext("2d");
+    if(!ctx) return;
+
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    const size = 18;
+    const gap = 4;
+    const blocks = 3;
+    const totalW = blocks*size + (blocks-1)*gap;
+    const x0 = Math.floor((canvas.width-totalW)/2);
+    const y0 = Math.floor((canvas.height-size)/2);
+
+    ctx.fillStyle = snakeColor;
+    if(shape === "round"){
+        const r = size*0.5;
+        for(let i=0;i<blocks;i++){
+            const cx = x0 + i*(size+gap) + r;
+            const cy = y0 + r;
+            ctx.beginPath();
+            ctx.arc(cx, cy, r, 0, Math.PI*2);
+            ctx.fill();
+        }
+    }else{
+        for(let i=0;i<blocks;i++){
+            ctx.fillRect(x0+i*(size+gap), y0, size, size);
+        }
+    }
+}
+
+function renderShapeMenu(){
+    if(!shapeRectBtn || !shapeRoundBtn) return;
+
+    const shape = (typeof snakeShape === "string") ? snakeShape : "rect";
+    shapeRectBtn.classList.toggle("active", shape !== "round");
+    shapeRoundBtn.classList.toggle("active", shape === "round");
+
+    drawShapePreview(shapeRectPreview, "rect");
+    drawShapePreview(shapeRoundPreview, "round");
+
+    shapeRectBtn.onclick = () => {
+        snakeShape = "rect";
+        localStorage.setItem("snakeShape", snakeShape);
+        renderShapeMenu();
+        drawPreview();
+    };
+
+    shapeRoundBtn.onclick = () => {
+        snakeShape = "round";
+        localStorage.setItem("snakeShape", snakeShape);
+        renderShapeMenu();
+        drawPreview();
+    };
+}
+
 function drawPreview(){
     pctx.clearRect(0,0,previewCanvas.width,previewCanvas.height);
 
@@ -146,16 +205,29 @@ function drawPreview(){
     const y0=Math.floor((previewCanvas.height-size)/2);
 
     pctx.fillStyle=snakeColor;
-    for(let i=0;i<blocks;i++){
-        pctx.fillRect(x0+i*size,y0,size,size);
+    const shape = (typeof snakeShape === "string") ? snakeShape : "rect";
+    if(shape === "round"){
+        const r = size*0.5;
+        for(let i=0;i<blocks;i++){
+            const cx = x0 + i*size + r;
+            const cy = y0 + r;
+            pctx.beginPath();
+            pctx.arc(cx, cy, r, 0, Math.PI*2);
+            pctx.fill();
+        }
+    }else{
+        for(let i=0;i<blocks;i++){
+            pctx.fillRect(x0+i*size,y0,size,size);
+        }
     }
 }
 
 document.getElementById("customBtn").onclick=()=>{
-    mainMenu.style.display="none";
+    window.setMainMenuVisible ? window.setMainMenuVisible(false) : (mainMenu.style.display="none");
     customOverlay.style.display="flex";
 
     renderColorMenu();
+    renderShapeMenu();
     window.updateMobileControlsVisibility?.();
 
     // Static preview: draw once on open, redraw on color change.
@@ -164,7 +236,7 @@ document.getElementById("customBtn").onclick=()=>{
 
 document.getElementById("closeCustom").onclick=()=>{
     customOverlay.style.display="none";
-    mainMenu.style.display="flex";
+    window.setMainMenuVisible ? window.setMainMenuVisible(true) : (mainMenu.style.display="flex");
     window.updateMobileControlsVisibility?.();
 
     if(previewRafId !== null){
@@ -175,4 +247,5 @@ document.getElementById("closeCustom").onclick=()=>{
 
 // Initial render (so it works if the overlay is opened via other logic).
 renderColorMenu();
+renderShapeMenu();
 drawPreview();

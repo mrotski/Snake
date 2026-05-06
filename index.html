@@ -3,10 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, viewport-fit=cover">
-<title>Snake 1.14.05</title>
+<title>Snake 2.0.50</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
+
+<!-- MAIN MENU BACKGROUND -->
+<div id="mainMenuBg" aria-hidden="true"></div>
 
 <!-- MAIN MENU -->
 <div class="menu" id="mainMenu">
@@ -16,7 +19,7 @@
     <button id="quitBtn">Exit game</button>
 </div>
 
-<div id="versionText">Snake 1.14.05 -- © Rubinica Studios 2026</div>
+<div id="versionText">Snake 2.0.50 -- © Rubinica Studios 2026</div>
 
 <!-- SETTINGS MENU -->
 <div id="settingsOverlay">
@@ -61,8 +64,9 @@
 
         <div class="settingsPanel" data-panel="releaseInfo" style="display:none">
             <div id="releaseInfo">
-                <div class="releaseVersion">Snake 1.14.05</div>
-                <div class="releaseMeta">Release date: 2026-05-05-18:48. Added: nothing. Fixed: "info about this release" tab. Removed: nothing.</div>
+                <div class="releaseVersion">Snake 2.0.50</div>
+                <div class="releaseMeta">Release date: 2026-05-06-15:55.
+                     Added: New UI interface, a "round" option for snake shape. Fixed: bugs. Removed: incorrecty rendering customization menu.</div>
             </div>
         </div>
     </div>
@@ -77,8 +81,18 @@
         </div>
 
         <div id="rightPanel">
-            <h2>Select Color</h2>
+            <h2>Choose snake color</h2>
             <div id="colorPalette"></div>
+
+            <h2>Select snake shape</h2>
+            <div id="shapePicker">
+                <button id="shapeRectBtn" class="shapePick" type="button" aria-label="Rectangle snake shape">
+                    <canvas id="shapeRectPreview" width="96" height="56"></canvas>
+                </button>
+                <button id="shapeRoundBtn" class="shapePick" type="button" aria-label="Round snake shape">
+                    <canvas id="shapeRoundPreview" width="96" height="56"></canvas>
+                </button>
+            </div>
             <br>
             <button id="closeCustom">Back</button>
         </div>

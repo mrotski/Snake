@@ -138,6 +138,8 @@ let highScore=localStorage.getItem("snakeHighScore")||0;
 document.getElementById("highScore").textContent=highScore;
 
 let snakeColor=localStorage.getItem("snakeColor")||"#00FF00";
+let snakeShape=(localStorage.getItem("snakeShape")||"rect").toLowerCase(); // "rect" | "round"
+if(snakeShape !== "rect" && snakeShape !== "round") snakeShape = "rect";
 
 const bgMusic=document.getElementById("bgMusic");
 
