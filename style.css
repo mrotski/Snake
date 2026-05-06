@@ -12,7 +12,7 @@
 
 html,
 body{
-    font-family: var(--snake-font-family, Arial, sans-serif);
+    font-family: var(--snake-font-family, "fonts/font_2.ttf");
 }
 
 body{
@@ -398,11 +398,11 @@ button{
 }
 
 body {
-    cursor: url('cursor.png'), auto;
+    cursor: url('assets/cursor.png'), auto;
 }
 
 * {
-    cursor: url('cursor.png'), auto !important;
+    cursor: url('assets/cursor.png'), auto !important;
 }
 
 #mobileControls {
