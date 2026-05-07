@@ -11,6 +11,8 @@ const mobileControlsEl = document.getElementById("mobileControls");
 const fontsListEl = document.getElementById("fontsList");
 const resolutionListEl = document.getElementById("resolutionList");
 const toastEl = document.getElementById("toast");
+const guiScaleValueEl = document.getElementById("guiScaleValue");
+const guiScaleSliderEl = document.getElementById("guiScaleSlider");
 
 const isMobileUi =
     window.matchMedia("(pointer: coarse)").matches ||
@@ -27,6 +29,7 @@ if(!selectedSong){
 let fullscreenPreference = localStorage.getItem("snakeFullscreenPreference") || "fullscreen"; // "fullscreen" | "windowed"
 let fontPreference = localStorage.getItem("snakeFontPreference") || "default"; // "default" | "font_1" | "font_2"
 let resolutionPreference = localStorage.getItem("snakeResolutionPreference") || "native"; // "native" | "WxH"
+let guiScalePreference = localStorage.getItem("snakeGuiScalePreference") || "small"; // "small" | "medium" | "large"
 
 let toastTimer = null;
 
@@ -70,6 +73,52 @@ function updateMobileControlsVisibility(){
 }
 
 window.updateMobileControlsVisibility = updateMobileControlsVisibility;
+
+function guiScaleToValue(pref){
+    if(pref === "medium") return 2;
+    if(pref === "large") return 3;
+    return 1;
+}
+
+function valueToGuiScale(v){
+    if(v === 2) return "medium";
+    if(v === 3) return "large";
+    return "small";
+}
+
+function guiScaleToFactor(pref){
+    if(pref === "medium") return 1.25;
+    if(pref === "large") return 1.5;
+    return 1.0;
+}
+
+function applyGuiScaleSelection(){
+    const factor = guiScaleToFactor(guiScalePreference);
+    document.documentElement.style.setProperty("--snake-mobile-scale", String(factor));
+
+    if(guiScaleValueEl){
+        const label = guiScalePreference.charAt(0).toUpperCase() + guiScalePreference.slice(1);
+        guiScaleValueEl.textContent = label;
+    }
+
+    if(guiScaleSliderEl){
+        const v = guiScaleToValue(guiScalePreference);
+        if(String(guiScaleSliderEl.value) !== String(v)) guiScaleSliderEl.value = String(v);
+    }
+}
+
+function renderGuiScale(){
+    if(!guiScaleSliderEl) return;
+    // Ensure UI reflects saved selection.
+    applyGuiScaleSelection();
+
+    guiScaleSliderEl.oninput = () => {
+        const v = Number(guiScaleSliderEl.value);
+        guiScalePreference = valueToGuiScale(v);
+        localStorage.setItem("snakeGuiScalePreference", guiScalePreference);
+        applyGuiScaleSelection();
+    };
+}
 
 function exitGameFullscreen(){
     const exit =
@@ -360,6 +409,9 @@ function setActiveSettingsTab(tab){
     if(tab === "resolution"){
         renderResolutionList();
     }
+    if(tab === "guiscale"){
+        renderGuiScale();
+    }
     // releaseInfo is static text (no rendering needed)
 }
 
@@ -504,6 +556,7 @@ soundBtn.onclick = () => {
 applySongSelection();
 applyFontSelection();
 applyResolutionSelection();
+applyGuiScaleSelection();
 updateMobileControlsVisibility();
 updateResolutionTabState();
 

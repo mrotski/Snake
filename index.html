@@ -34,6 +34,7 @@
             <button class="settingsTab" data-tab="fullscreen">Fullscreen</button>
             <button class="settingsTab" data-tab="fonts">Fonts</button>
             <button class="settingsTab" data-tab="resolution">Resolution (beta)</button>
+            <button class="settingsTab" data-tab="guiscale">GUI scale</button>
             <button class="settingsTab" data-tab="releaseInfo">Info about this release</button>
         </div>
 
@@ -60,6 +61,13 @@
 
         <div class="settingsPanel" data-panel="resolution" style="display:none">
             <div id="resolutionList"></div>
+        </div>
+
+        <div class="settingsPanel" data-panel="guiscale" style="display:none">
+            <div id="guiScalePanel">
+                <div id="guiScaleValue" class="guiScaleValue">Small</div>
+                <input id="guiScaleSlider" class="guiScaleSlider" type="range" min="1" max="3" step="1" value="1">
+            </div>
         </div>
 
         <div class="settingsPanel" data-panel="releaseInfo" style="display:none">

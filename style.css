@@ -179,6 +179,16 @@ button{
     padding:10px 2px;
 }
 
+.guiScaleValue{
+    font-size:20px;
+    font-weight:800;
+    margin-bottom:10px;
+}
+
+.guiScaleSlider{
+    width:min(520px, 100%);
+}
+
 #releaseInfo{
     padding:14px 2px;
 }
@@ -411,6 +421,8 @@ body {
     right: 20px; /* 🔥 oikea alakulma */
     z-index: 9999;
     display:none;
+    transform: scale(var(--snake-mobile-scale, 1));
+    transform-origin: bottom right;
 }
 
 /* Keskittää napit pystysuunnassa */
