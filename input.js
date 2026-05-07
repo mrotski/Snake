@@ -27,6 +27,11 @@ function handleDirectionInput(newDir) {
     if (newDir) nextDirection = newDir;
 }
 
+function handlePauseInput(){
+    if(!gameStarted) return;
+    togglePause();
+}
+
 document.querySelector(".up")?.addEventListener("touchstart", () => {
     handleDirectionInput({ x: 0, y: -1 });
 });
@@ -41,6 +46,10 @@ document.querySelector(".left")?.addEventListener("touchstart", () => {
 
 document.querySelector(".right")?.addEventListener("touchstart", () => {
     handleDirectionInput({ x: 1, y: 0 });
+});
+
+document.querySelector(".esc")?.addEventListener("touchstart", () => {
+    handlePauseInput();
 });
 
 document.querySelectorAll(".ctrl").forEach(btn => {
@@ -63,6 +72,10 @@ document.querySelector(".left")?.addEventListener("mousedown", () => {
 
 document.querySelector(".right")?.addEventListener("mousedown", () => {
     handleDirectionInput({ x: 1, y: 0 });
+});
+
+document.querySelector(".esc")?.addEventListener("mousedown", () => {
+    handlePauseInput();
 });
 
 // Mobile controls visibility is managed by menu/UI state (in-game only).
