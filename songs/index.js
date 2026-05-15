@@ -4,8 +4,6 @@ window.SNAKE_SONGS = [
   { file: "no_song.mp3", title: "No song" },
   { file: "song_1.mp3", title: "Song 1" },
   { file: "song_2.mp3", title: "Song 2" },
-  { file: "song_3.mp3", title: "Song 3" },
-  { file: "song_4.mp3", title: "Song 4" },
-  { file: "song_5.mp3", title: "Song 5" }
+  { file: "song_3.mp3", title: "Song 3" }
 ];
 
