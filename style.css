@@ -54,7 +54,7 @@ textarea{
     position:fixed;
     left:40px;
     top:50%;
-    transform:translateY(-50%);
+    transform:translate3d(0, -50%, 0);
     display:flex;
     flex-direction:column;
     gap:20px;
@@ -64,16 +64,53 @@ textarea{
 button{
     padding:15px 50px;
     font-size:18px;
-    cursor:pointer;
+    cursor:initial;
     border:none;
     border-radius:8px;
     font-weight:bold;
+    transition: filter 160ms ease, transform 160ms ease, background-color 160ms ease, box-shadow 160ms ease;
+}
+
+button:hover:not(:disabled){
+    /* Slightly greyer on hover without breaking custom backgrounds. */
+    filter: grayscale(0.25) brightness(0.92);
+}
+
+button:active:not(:disabled){
+    transform: translateY(1px);
+    filter: grayscale(0.3) brightness(0.88);
+}
+
+button:disabled{
+    cursor:initial;
 }
 
 #playBtn{background:whitesmoke;}
 #customBtn{background:whitesmoke;}
 #settingsBtn{background:whitesmoke;}
 #quitBtn{background:whitesmoke;}
+
+#mainMenu{
+    opacity:1;
+    transition: opacity 220ms ease, transform 220ms ease;
+    will-change: opacity, transform;
+}
+
+#mainMenu.is-hidden{
+    opacity:0;
+    pointer-events:none;
+    transform: translate3d(-12px, -50%, 0);
+}
+
+#mainMenuBg{
+    opacity:1;
+    transition: opacity 260ms ease;
+    will-change: opacity;
+}
+
+#mainMenuBg.is-hidden{
+    opacity:0;
+}
 
 #soundBtn{
     position:absolute;
@@ -110,20 +147,48 @@ button{
     position:fixed;
     inset:0;
     background:#111;
-    display:none;
+    display:flex;
     justify-content:center;
     align-items:center;
     z-index:2000;
+    opacity:0;
+    visibility:hidden;
+    pointer-events:none;
+    transform: scale(1.02);
+    transition: opacity 220ms ease, transform 220ms ease, visibility 0s linear 220ms;
+    will-change: opacity, transform;
+}
+
+#customOverlay.is-open{
+    opacity:1;
+    visibility:visible;
+    pointer-events:auto;
+    transform: scale(1);
+    transition: opacity 220ms ease, transform 220ms ease, visibility 0s;
 }
 
 #settingsOverlay{
     position:fixed;
     inset:0;
     background:#111;
-    display:none;
+    display:flex;
     justify-content:center;
     align-items:center;
     z-index:2100;
+    opacity:0;
+    visibility:hidden;
+    pointer-events:none;
+    transform: scale(1.02);
+    transition: opacity 220ms ease, transform 220ms ease, visibility 0s linear 220ms;
+    will-change: opacity, transform;
+}
+
+#settingsOverlay.is-open{
+    opacity:1;
+    visibility:visible;
+    pointer-events:auto;
+    transform: scale(1);
+    transition: opacity 220ms ease, transform 220ms ease, visibility 0s;
 }
 
 #settingsContent{
@@ -136,6 +201,20 @@ button{
     padding:28px;
     gap:18px;
     color:white;
+}
+
+#customContent,
+#settingsContent{
+    transform: translate3d(0, 10px, 0);
+    opacity:0;
+    transition: transform 220ms ease, opacity 220ms ease;
+    will-change: transform, opacity;
+}
+
+#customOverlay.is-open #customContent,
+#settingsOverlay.is-open #settingsContent{
+    transform: translate3d(0, 0, 0);
+    opacity:1;
 }
 
 #settingsHeader{
@@ -171,12 +250,31 @@ button{
 
 .settingsTab.disabled{
     opacity:0.5;
+    pointer-events:none;
 }
 
 .settingsPanel{
     flex:1;
     overflow:auto;
     padding:10px 2px;
+}
+
+.settingsPanel.anim-in{
+    animation: settingsPanelIn 180ms ease both;
+}
+
+.settingsPanel.anim-out{
+    animation: settingsPanelOut 180ms ease both;
+}
+
+@keyframes settingsPanelIn{
+    from{ opacity:0; transform: translate3d(0, 8px, 0); }
+    to{ opacity:1; transform: translate3d(0, 0, 0); }
+}
+
+@keyframes settingsPanelOut{
+    from{ opacity:1; transform: translate3d(0, 0, 0); }
+    to{ opacity:0; transform: translate3d(0, -6px, 0); }
 }
 
 .guiScaleValue{
@@ -255,7 +353,7 @@ button{
     border-radius:12px;
     background:#141414;
     border:2px solid #2a2a2a;
-    cursor:pointer;
+    cursor:initial;
 }
 
 .fsOption.active{
@@ -382,7 +480,7 @@ button{
     border-radius:12px;
     background:#141414;
     border:2px solid #2a2a2a;
-    cursor:pointer;
+    cursor:initial;
 }
 
 .shapePick.active{
@@ -399,20 +497,12 @@ button{
     width:40px;
     height:40px;
     border-radius:6px;
-    cursor:pointer;
+    cursor:initial;
     border:2px solid #333;
 }
 
 .colorSwatch:hover{
     border:2px solid white;
-}
-
-body {
-    cursor: url('assets/cursor.png'), auto;
-}
-
-* {
-    cursor: url('assets/cursor.png'), auto !important;
 }
 
 #mobileControls {
@@ -478,7 +568,7 @@ body {
     width: 40px;
     height: 40px;
     border-radius: 6px;
-    cursor: pointer;
+    cursor:initial;
     border: 2px solid #333;
 }
 

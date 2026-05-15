@@ -224,7 +224,7 @@ function drawPreview(){
 
 document.getElementById("customBtn").onclick=()=>{
     window.setMainMenuVisible ? window.setMainMenuVisible(false) : (mainMenu.style.display="none");
-    customOverlay.style.display="flex";
+    window.setOverlayOpen ? window.setOverlayOpen(customOverlay, true) : customOverlay.classList.add("is-open");
 
     renderColorMenu();
     renderShapeMenu();
@@ -235,7 +235,7 @@ document.getElementById("customBtn").onclick=()=>{
 };
 
 document.getElementById("closeCustom").onclick=()=>{
-    customOverlay.style.display="none";
+    window.setOverlayOpen ? window.setOverlayOpen(customOverlay, false) : customOverlay.classList.remove("is-open");
     window.setMainMenuVisible ? window.setMainMenuVisible(true) : (mainMenu.style.display="flex");
     window.updateMobileControlsVisibility?.();
 

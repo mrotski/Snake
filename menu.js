@@ -43,14 +43,30 @@ function showToast(message){
     }, 2000);
 }
 
-function isElementVisible(el){
+function isElementDisplayed(el){
     if(!el) return false;
     return window.getComputedStyle(el).display !== "none";
 }
 
+function isOverlayOpen(el){
+    return !!el && el.classList.contains("is-open");
+}
+
+function setOverlayOpen(el, open){
+    if(!el) return;
+    el.classList.toggle("is-open", !!open);
+    el.setAttribute("aria-hidden", open ? "false" : "true");
+}
+
+window.setOverlayOpen = setOverlayOpen;
+
+function isMainMenuVisible(){
+    return !!mainMenu && !mainMenu.classList.contains("is-hidden");
+}
+
 function setMainMenuVisible(visible){
-    mainMenu.style.display = visible ? "flex" : "none";
-    if(mainMenuBg) mainMenuBg.style.display = visible ? "block" : "none";
+    if(mainMenu) mainMenu.classList.toggle("is-hidden", !visible);
+    if(mainMenuBg) mainMenuBg.classList.toggle("is-hidden", !visible);
 }
 
 window.setMainMenuVisible = setMainMenuVisible;
@@ -64,10 +80,10 @@ function updateMobileControlsVisibility(){
 
     const inGame =
         !!gameStarted &&
-        isElementVisible(gameCanvas) &&
-        !isElementVisible(mainMenu) &&
-        !isElementVisible(settingsOverlay) &&
-        !isElementVisible(customOverlayEl);
+        isElementDisplayed(gameCanvas) &&
+        !isMainMenuVisible() &&
+        !isOverlayOpen(settingsOverlay) &&
+        !isOverlayOpen(customOverlayEl);
 
     mobileControlsEl.style.display = inGame ? "block" : "none";
 }
@@ -393,9 +409,41 @@ function setActiveSettingsTab(tab){
     const panels = settingsOverlay?.querySelectorAll?.(".settingsPanel") || [];
 
     tabs.forEach(btn => btn.classList.toggle("active", btn.dataset.tab === tab));
+
+    const PANEL_ANIM_MS = 180;
+    if(!setActiveSettingsTab._timers) setActiveSettingsTab._timers = new WeakMap();
+    const timers = setActiveSettingsTab._timers;
+
+    let nextPanel = null;
+    let prevPanel = null;
     panels.forEach(panel => {
-        panel.style.display = (panel.dataset.panel === tab) ? "block" : "none";
+        if(panel.dataset.panel === tab) nextPanel = panel;
+        if(panel.style.display !== "none" && panel.dataset.panel !== tab) prevPanel = panel;
     });
+
+    if(prevPanel){
+        const t0 = timers.get(prevPanel);
+        if(t0) clearTimeout(t0);
+        prevPanel.classList.remove("anim-in");
+        prevPanel.classList.add("anim-out");
+        const t = setTimeout(() => {
+            prevPanel.style.display = "none";
+            prevPanel.classList.remove("anim-out");
+        }, PANEL_ANIM_MS);
+        timers.set(prevPanel, t);
+    }
+
+    if(nextPanel){
+        const t1 = timers.get(nextPanel);
+        if(t1) clearTimeout(t1);
+        nextPanel.style.display = "block";
+        nextPanel.classList.remove("anim-out");
+        nextPanel.classList.add("anim-in");
+        const t = setTimeout(() => {
+            nextPanel.classList.remove("anim-in");
+        }, PANEL_ANIM_MS);
+        timers.set(nextPanel, t);
+    }
 
     if(tab === "songs"){
         renderSongsList();
@@ -469,14 +517,14 @@ document.getElementById("playBtn").onclick = () => {
 
 document.getElementById("settingsBtn").onclick = () => {
     setMainMenuVisible(false);
-    settingsOverlay.style.display = "flex";
+    setOverlayOpen(settingsOverlay, true);
     setActiveSettingsTab("songs");
     updateResolutionTabState();
     updateMobileControlsVisibility();
 };
 
 document.getElementById("closeSettings").onclick = () => {
-    settingsOverlay.style.display = "none";
+    setOverlayOpen(settingsOverlay, false);
     setMainMenuVisible(true);
     updateMobileControlsVisibility();
 };
@@ -557,6 +605,8 @@ applySongSelection();
 applyFontSelection();
 applyResolutionSelection();
 applyGuiScaleSelection();
+setOverlayOpen(settingsOverlay, false);
+setOverlayOpen(customOverlayEl, false);
 updateMobileControlsVisibility();
 updateResolutionTabState();
 
